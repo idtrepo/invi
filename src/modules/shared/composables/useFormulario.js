@@ -1,6 +1,7 @@
 import { onMounted, ref } from 'vue'
 
 const ls = localStorage;
+const cargando = ref(false);
 
 export default () => {
     const rsvpSubmitted = ref(false);
@@ -14,6 +15,8 @@ export default () => {
         if (!rsvpForm.value.invitado) {
             return;
         }
+
+        cargando.value = true;
 
         try {
             await fetch('https://script.google.com/macros/s/AKfycbwTh0axqldhUnmcsyVNDeRlg6h4J6fI5GQN28vhtQNT6hV4rwm-ex8RmJqbYR4n6fJ_Ug/exec', {
@@ -29,6 +32,8 @@ export default () => {
             ls.setItem('rsvpSubmitted', 'true');
         } catch (err) {
             console.error(err);
+        } finally {
+            cargando.value = false;
         }
 
     };
@@ -45,6 +50,7 @@ export default () => {
     return {
         rsvpSubmitted,
         rsvpForm,
+        cargando,
         submitRsvp
     }
 }

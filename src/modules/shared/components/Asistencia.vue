@@ -54,7 +54,7 @@
                 </div>
 
                 <button type="submit"
-                    class="w-full py-4 bg-[#8C5E46] text-white text-xs tracking-[0.2em] uppercase rounded-lg shadow-sm hover:bg-[#724B36] transition duration-300 font-medium">
+                    class="w-full py-4 bg-[#8C5E46] text-white text-xs tracking-[0.2em] uppercase rounded-lg shadow-sm hover:bg-[#724B36] transition duration-300 font-medium" :disabled="cargando">
                     Enviar Confirmación
                 </button>
 
@@ -72,6 +72,7 @@ import useURLParams from '../composables/useURLParams';
 const {
     rsvpForm,
     rsvpSubmitted,
+    cargando,
     submitRsvp,
 } = useFormulario();
 
