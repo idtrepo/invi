@@ -30,20 +30,27 @@
 
             <!-- Event 2 -->
             <div v-if="invitadoEspecial" class="relative md:grid md:grid-cols-2 md:gap-8 items-center">
-                <div class="md:text-right md:pr-12 md:order-1">
-                    <div class="bg-white p-4 rounded-xl border border-[#EFECE6] text-xs text-[#8A7968]">
-                        📍 Jardin las flores
+                <div class="flex flex-col md:contents">
+                    <!-- Textos (Arriba en móvil, Derecha en Desktop) -->
+                    <div class="md:order-3 md:pl-12 order-1">
+                        <span
+                            class="text-xs tracking-widest uppercase px-3 py-1 bg-[#F4F1EA] text-[#8C5E46] rounded-full font-medium inline-block mb-2">05:00
+                            PM</span>
+                        <h3 class="font-serif text-xl text-[#3D312A] font-semibold">Ceremonia de registro civil</h3>
+                        <p class="text-sm text-[#7A6B5D] mt-1">Union en matrimonio de los novios.</p>
                     </div>
-                </div>
-                <div
-                    class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-[#8C5E46] rounded-full border-4 border-[#FDFBF7] md:order-2">
-                </div>
-                <div class="md:order-3 md:pl-12">
-                    <span
-                        class="text-xs tracking-widest uppercase px-3 py-1 bg-[#F4F1EA] text-[#8C5E46] rounded-full font-medium inline-block mb-2">05:00
-                        PM</span>
-                    <h3 class="font-serif text-xl text-[#3D312A] font-semibold">Ceremonia de registro civil</h3>
-                    <p class="text-sm text-[#7A6B5D] mt-1">Union en matrimonio de los novios.</p>
+
+                    <!-- Círculo central (Oculto en mobile) -->
+                    <div
+                        class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-[#8C5E46] rounded-full border-4 border-[#FDFBF7] md:order-2">
+                    </div>
+
+                    <!-- Tarjeta de ubicación (Abajo en móvil con margen superior, Izquierda en Desktop) -->
+                    <div class="mt-4 md:mt-0 md:text-right md:pr-12 md:order-1 order-2">
+                        <div class="bg-white p-4 rounded-xl border border-[#EFECE6] text-xs text-[#8A7968]">
+                            📍 Jardin las flores
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -68,21 +75,28 @@
 
             <!-- Event 4 -->
             <div class="relative md:grid md:grid-cols-2 md:gap-8 items-center">
-                <div class="md:text-right md:pr-12 md:order-1">
-                    <div class="bg-white p-4 rounded-xl border border-[#EFECE6] text-xs text-[#8A7968]">
-                        📍 Jardin las flores
+                <!-- Contenedor principal que en móvil actúa como columna -->
+                <div class="flex flex-col md:contents">
+                    <!-- 1. Textos (Hora, Título y Descripción) - Arriba en móvil, Derecha en Desktop (orden 2 en desktop) -->
+                    <div class="md:order-3 md:pl-12 order-1">
+                        <span
+                            class="text-xs tracking-widest uppercase px-3 py-1 bg-[#F4F1EA] text-[#8C5E46] rounded-full font-medium inline-block mb-2">06:00
+                            PM</span>
+                        <h3 class="font-serif text-xl text-[#3D312A] font-semibold">Baile & Fiesta</h3>
+                        <p class="text-sm text-[#7A6B5D] mt-1">¡A bailar!</p>
                     </div>
-                </div>
-                <div
-                    class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-[#8C5E46] rounded-full border-4 border-[#FDFBF7] md:order-2">
-                </div>
-                <div class="md:order-3 md:pl-12">
-                    <span
-                        class="text-xs tracking-widest uppercase px-3 py-1 bg-[#F4F1EA] text-[#8C5E46] rounded-full font-medium inline-block mb-2">06:00
-                        PM</span>
-                    <h3 class="font-serif text-xl text-[#3D312A] font-semibold">Baile & Fiesta</h3>
-                    <p class="text-sm text-[#7A6B5D] mt-1">¡A bailar!
-                    </p>
+
+                    <!-- Círculo central (Se mantiene oculto en mobile igual que en tu segundo ejemplo) -->
+                    <div
+                        class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-[#8C5E46] rounded-full border-4 border-[#FDFBF7] md:order-2">
+                    </div>
+
+                    <!-- 2. Tarjeta de ubicación - Abajo en móvil, Izquierda en Desktop (orden 1 en desktop) -->
+                    <div class="mt-4 md:mt-0 md:text-right md:pr-12 md:order-1 order-2">
+                        <div class="bg-white p-4 rounded-xl border border-[#EFECE6] text-xs text-[#8A7968]">
+                            📍 Jardin las flores
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -107,21 +121,27 @@
 
             <!-- Event 6 -->
             <div class="relative md:grid md:grid-cols-2 md:gap-8 items-center">
-                <div class="md:text-right md:pr-12 md:order-1">
-                    <div class="bg-white p-4 rounded-xl border border-[#EFECE6] text-xs text-[#8A7968]">
-                        📍 Cada quien para su casa :3
+                <div class="flex flex-col md:contents">
+                    <!-- Textos (Arriba en móvil, Derecha en Desktop) -->
+                    <div class="md:order-3 md:pl-12 order-1">
+                        <span
+                            class="text-xs tracking-widest uppercase px-3 py-1 bg-[#F4F1EA] text-[#8C5E46] rounded-full font-medium inline-block mb-2">11:00
+                            PM</span>
+                        <h3 class="font-serif text-xl text-[#3D312A] font-semibold">Fin de la velada</h3>
+                        <p class="text-sm text-[#7A6B5D] mt-1">¡Muchas gracias por formar parte de nuestro momento!</p>
                     </div>
-                </div>
-                <div
-                    class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-[#8C5E46] rounded-full border-4 border-[#FDFBF7] md:order-2">
-                </div>
-                <div class="md:order-3 md:pl-12">
-                    <span
-                        class="text-xs tracking-widest uppercase px-3 py-1 bg-[#F4F1EA] text-[#8C5E46] rounded-full font-medium inline-block mb-2">11:00
-                        PM</span>
-                    <h3 class="font-serif text-xl text-[#3D312A] font-semibold">Fin de la velada</h3>
-                    <p class="text-sm text-[#7A6B5D] mt-1">¡Muchas gracias por formar parte de nuestro momento!
-                    </p>
+
+                    <!-- Círculo central (Oculto en mobile) -->
+                    <div
+                        class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-[#8C5E46] rounded-full border-4 border-[#FDFBF7] md:order-2">
+                    </div>
+
+                    <!-- Tarjeta de ubicación (Abajo en móvil con margen superior, Izquierda en Desktop) -->
+                    <div class="mt-4 md:mt-0 md:text-right md:pr-12 md:order-1 order-2">
+                        <div class="bg-white p-4 rounded-xl border border-[#EFECE6] text-xs text-[#8A7968]">
+                            📍 Cada quien para su casa :3
+                        </div>
+                    </div>
                 </div>
             </div>
 
