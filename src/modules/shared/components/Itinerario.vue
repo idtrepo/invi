@@ -6,7 +6,7 @@
             <div class="w-12 h-0.5 bg-[#DCD5C9] mx-auto mt-4"></div>
         </div>
 
-        <div class="relative border-l-2 border-[#E5E0D5] ml-4 md:ml-auto space-y-12 pl-6 md:pl-0">
+        <div class="relative border-[#E5E0D5] ml-4 md:ml-auto space-y-12 pl-6 md:pl-0">
 
             <!-- Event 1 -->
             <div v-if="invitadoEspecial" class="relative md:grid md:grid-cols-2 md:gap-8 items-center">
