@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boda Sofía & Mateo</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Playfair Display & Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>body{font-family:Montserrat,sans-serif}.font-serif{font-family:Playfair Display,serif}</style>
+</head>
+<body class="bg-[#FDFBF7] text-[#5C5346] antialiased selection:bg-[#B38B6D] selection:text-white">
+
+  <div id="app">
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-50 bg-[#FDFBF7]/90 backdrop-blur-md border-b border-[#EFECE6] px-6 py-4 transition-all">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <a href="#" class="font-serif text-xl tracking-widest text-[#4A3B32]">Isaac & Arely</a>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8 text-xs tracking-widest uppercase font-medium">
+          <button @click="scrollToSection('itinerario')" class="hover:text-[#B38B6D] transition">Itinerario</button>
+          <button @click="scrollToSection('ubicacion')" class="hover:text-[#B38B6D] transition">Ubicación</button>
+          <button @click="scrollToSection('regalos')" class="hover:text-[#B38B6D] transition">Mesa de Regalos</button>
+          <button @click="scrollToSection('rsvp')" class="hover:text-[#B38B6D] transition">RSVP</button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-[#4A3B32] focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+            <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Dropdown -->
+      <div v-if="mobileMenuOpen" class="md:hidden absolute top-full left-0 w-full bg-[#FDFBF7] border-b border-[#EFECE6] py-6 px-6 shadow-lg flex flex-col space-y-4 text-sm tracking-widest uppercase">
+        <button @click="scrollToSection('itinerario')" class="text-left py-2 border-b border-[#F4F1EA]">Itinerario</button>
+        <button @click="scrollToSection('ubicacion')" class="text-left py-2 border-b border-[#F4F1EA]">Ubicación</button>
+        <button @click="scrollToSection('regalos')" class="text-left py-2 border-b border-[#F4F1EA]">Mesa de Regalos</button>
+        <button @click="scrollToSection('rsvp')" class="text-left py-2">RSVP</button>
+      </div>
+    </nav>
+
+    <!-- Header / Hero Section -->
+    <header class="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-4 py-16 bg-cover bg-center" style="background-image: linear-gradient(rgba(253, 251, 247, 0.4), rgba(253, 251, 247, 0.85)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80')">
+      <div class="max-w-4xl mx-auto space-y-8 z-10 mt-6">
+        <p class="text-xs md:text-sm tracking-[0.3em] uppercase text-[#7A6B5D] font-medium">Estás cordialmente invitado a nuestra boda</p>
+        
+        <h1 class="font-serif text-5xl md:text-8xl tracking-wide text-[#3D312A] font-light">
+          Isaac <span class="font-serif italic text-[#9C7A5B]">&</span> Arely
+        </h1>
+
+        <!-- Countdown Timer Box -->
+        <div class="bg-white/85 backdrop-blur-md rounded-2xl p-6 md:p-8 max-w-xl mx-auto shadow-sm border border-[#EFECE6] grid grid-cols-4 gap-2 md:gap-4 my-8">
+          <div class="flex flex-col items-center">
+            <span class="font-serif text-2xl md:text-4xl text-[#3D312A] font-semibold">{{ timeLeft.days }}</span>
+            <span class="text-[10px] md:text-xs tracking-widest uppercase text-[#8A7968] mt-1">Días</span>
+          </div>
+          <div class="flex flex-col items-center border-l border-[#EFECE6]">
+            <span class="font-serif text-2xl md:text-4xl text-[#3D312A] font-semibold">{{ timeLeft.hours }}</span>
+            <span class="text-[10px] md:text-xs tracking-widest uppercase text-[#8A7968] mt-1">Horas</span>
+          </div>
+          <div class="flex flex-col items-center border-l border-[#EFECE6]">
+            <span class="font-serif text-2xl md:text-4xl text-[#3D312A] font-semibold">{{ timeLeft.minutes }}</span>
+            <span class="text-[10px] md:text-xs tracking-widest uppercase text-[#8A7968] mt-1">Minutos</span>
+          </div>
+          <div class="flex flex-col items-center border-l border-[#EFECE6]">
+            <span class="font-serif text-2xl md:text-4xl text-[#3D312A] font-semibold">{{ timeLeft.seconds }}</span>
+            <span class="text-[10px] md:text-xs tracking-widest uppercase text-[#8A7968] mt-1">Segundos</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+          <button @click="scrollToSection('rsvp')" class="w-full sm:w-auto px-8 py-3.5 bg-[#8C5E46] text-white text-xs tracking-[0.2em] uppercase rounded-lg shadow-sm hover:bg-[#724B36] transition duration-300">
+            Confirmar Asistencia
+          </button>
+          <button @click="scrollToSection('ubicacion')" class="w-full sm:w-auto px-8 py-3.5 bg-white text-[#5C5346] border border-[#DCD5C9] text-xs tracking-[0.2em] uppercase rounded-lg shadow-sm hover:bg-[#F4F1EA] transition duration-300">
+            Ver Ubicación
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Quote Section -->
+    <section class="py-20 px-6 text-center bg-[#F7F4EE]">
+      <div class="max-w-2xl mx-auto space-y-4">
+        <svg class="w-6 h-6 mx-auto text-[#B38B6D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        <blockquote class="font-serif italic text-xl md:text-2xl text-[#4A3B32] font-light leading-relaxed">
+          "Amar no es mirarse el uno al otro, sino juntos hacia la misma dirección bajo el cielo dorado del otoño."
+        </blockquote>
+        <p class="text-xs tracking-[0.2em] uppercase text-[#8A7968]">— Sofía & Mateo —</p>
+      </div>
+    </section>
+
+    <!-- Itinerary Section -->
+    <section id="itinerario" class="py-24 px-6 max-w-5xl mx-auto">
+      <div class="text-center space-y-3 mb-16">
+        <p class="text-xs tracking-[0.3em] uppercase text-[#9C7A5B] font-medium">Programa de eventos</p>
+        <h2 class="font-serif text-3xl md:text-4xl text-[#3D312A]">El Itinerario del Día</h2>
+        <div class="w-12 h-0.5 bg-[#DCD5C9] mx-auto mt-4"></div>
+      </div>
+
+      <div class="relative border-l-2 border-[#E5E0D5] ml-4 md:ml-auto space-y-12 pl-6 md:pl-0">
+        
+        <!-- Event 1 -->
+        <div class="relative md:grid md:grid-cols-2 md:gap-8 items-center">
+          <div class="md:text-right md:pr-12">
+            <span class="text-xs tracking-widest uppercase px-3 py-1 bg-[#F4F1EA] text-[#8C5E46] rounded-full font-medium inline-block mb-2">12:00 PM</span>
+            <h3 class="font-serif text-xl text-[#3D312A] font-semibold">Ceremonia Religiosa</h3>
+            <p class="text-sm text-[#7A6B5D] mt-1">Capilla Nuestra Señora de la Paz. Se solicita puntualidad rigurosa.</p>
+          </div>
+          <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-[#8C5E46] rounded-full border-4 border-[#FDFBF7]"></div>
+          <div class="mt-4 md:mt-0 md:pl-12">
+            <div class="bg-white p-4 rounded-xl border border-[#EFECE6] text-xs text-[#8A7968]">
+              📍 Ubicación exacta en el mapa de abajo
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="relative md:grid md:grid-cols-2 md:gap-8 items-center">
+          <div class="md:text-right md:pr-12 md:order-1">
+            <div class="bg-white p-4 rounded-xl border border-[#EFECE6] text-xs text-[#8A7968]">
+              📍 Jardín Principal
+            </div>
+          </div>
+          <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-[#8C5E46] rounded-full border-4 border-[#FDFBF7] md:order-2"></div>
+          <div class="md:order-3 md:pl-12">
+            <span class="text-xs tracking-widest uppercase px-3 py-1 bg-[#F4F1EA] text-[#8C5E46] rounded-full font-medium inline-block mb-2">01:30 PM</span>
+            <h3 class="font-serif text-xl text-[#3D312A] font-semibold">Recepción y Cóctel</h3>
+            <p class="text-sm text-[#7A6B5D] mt-1">Disfruta de música en vivo y bebidas de bienvenida al aire libre.</p>
+          </div>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="relative md:grid md:grid-cols-2 md:gap-8 items-center">
+          <div class="md:text-right md:pr-12">
+            <span class="text-xs tracking-widest uppercase px-3 py-1 bg-[#F4F1EA] text-[#8C5E46] rounded-full font-medium inline-block mb-2">03:00 PM</span>
+            <h3 class="font-serif text-xl text-[#3D312A] font-semibold">Banquete de Bodas</h3>
+            <p class="text-sm text-[#7A6B5D] mt-1">Menú de tres tiempos preparado por el Chef Ejecutivo.</p>
+          </div>
+          <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-[#8C5E46] rounded-full border-4 border-[#FDFBF7]"></div>
+          <div class="mt-4 md:mt-0 md:pl-12">
+            <div class="bg-white p-4 rounded-xl border border-[#EFECE6] text-xs text-[#8A7968]">
+              📍 Salón Los Viñedos
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 4 -->
+        <div class="relative md:grid md:grid-cols-2 md:gap-8 items-center">
+          <div class="md:text-right md:pr-12 md:order-1">
+            <div class="bg-white p-4 rounded-xl border border-[#EFECE6] text-xs text-[#8A7968]">
+              📍 Pista Principal
+            </div>
+          </div>
+          <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-[#8C5E46] rounded-full border-4 border-[#FDFBF7] md:order-2"></div>
+          <div class="md:order-3 md:pl-12">
+            <span class="text-xs tracking-widest uppercase px-3 py-1 bg-[#F4F1EA] text-[#8C5E46] rounded-full font-medium inline-block mb-2">05:00 PM</span>
+            <h3 class="font-serif text-xl text-[#3D312A] font-semibold">Primer Baile & Fiesta</h3>
+            <p class="text-sm text-[#7A6B5D] mt-1">¡A bailar toda la noche con música en vivo y DJ invitado!</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Location & Details Section -->
+    <section id="ubicacion" class="py-24 bg-[#F7F4EE] px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center space-y-3 mb-16">
+          <p class="text-xs tracking-[0.3em] uppercase text-[#9C7A5B] font-medium">Información de utilidad</p>
+          <h2 class="font-serif text-3xl md:text-4xl text-[#3D312A]">Ubicación & Detalles Esenciales</h2>
+          <div class="w-12 h-0.5 bg-[#DCD5C9] mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Card 1 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-[#EFECE6] flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 bg-[#F4F1EA] rounded-full flex items-center justify-center text-[#8C5E46] mb-6">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <h3 class="font-serif text-xl text-[#3D312A] mb-2">Jardin las flores</h3>
+              <p class="text-xs tracking-widest uppercase text-[#9C7A5B] mb-4">Ceremonia & Recepción</p>
+              <p class="text-sm text-[#7A6B5D] leading-relaxed mb-6">
+                Av. Michoacan 391-A, Pimentel, 83188 Hermosillo, Son.
+              </p>
+            </div>
+            <a href="https://maps.app.goo.gl/oW5WxJEG8veT7dnV9" target="_blank" class="w-full py-3 bg-[#F4F1EA] text-[#5C5346] text-xs tracking-widest uppercase rounded-lg text-center font-medium hover:bg-[#EBE5DA] transition">
+              Abrir en Google Maps
+            </a>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-[#EFECE6] flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 bg-[#F4F1EA] rounded-full flex items-center justify-center text-[#8C5E46] mb-6">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <h3 class="font-serif text-xl text-[#3D312A] mb-2">Formal de Jardín</h3>
+              <p class="text-xs tracking-widest uppercase text-[#9C7A5B] mb-4">Código de Vestimenta</p>
+              <p class="text-sm text-[#7A6B5D] leading-relaxed mb-6">
+                Ellos: Traje o Guayabera formal. Ellas: Vestido largo o midi. Sugerimos calzado cómodo para jardín.
+              </p>
+              
+              <div class="mb-6">
+                <p class="text-[10px] tracking-widest uppercase text-[#8A7968] mb-2">Paleta Sugerida (Evitar blanco):</p>
+                <div class="flex space-x-2">
+                  <span class="w-6 h-6 rounded-full bg-[#8C5E46] inline-block shadow-xs"></span>
+                  <span class="w-6 h-6 rounded-full bg-[#C29B7F] inline-block shadow-xs"></span>
+                  <span class="w-6 h-6 rounded-full bg-[#4A5D4E] inline-block shadow-xs"></span>
+                  <span class="w-6 h-6 rounded-full bg-[#D4C3B3] inline-block shadow-xs"></span>
+                  <span class="w-6 h-6 rounded-full bg-[#3D312A] inline-block shadow-xs"></span>
+                </div>
+              </div>
+            </div>
+            <div class="bg-[#F9F7F2] p-3 rounded-lg text-center text-xs text-[#8A7968]">
+              👗 Vestimenta Formal de Jardín
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-[#EFECE6] flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 bg-[#F4F1EA] rounded-full flex items-center justify-center text-[#8C5E46] mb-6">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              </div>
+              <h3 class="font-serif text-xl text-[#3D312A] mb-2">Celebracion exclusiva solo para adultos</h3>
+              <p class="text-xs tracking-widest uppercase text-[#9C7A5B] mb-4">Nota agradecida con cariño</p>
+              <p class="text-sm text-[#7A6B5D] leading-relaxed mb-6">
+                Aunque adoramos con el corazon a los mas pequeños de la familia, hemos tomado la decision de que nuestra boda sea un evento exclusivo para adultos. Deseamos profundamente que puedan disfrutar de una noche magica, libre de preocupeaciones, y bailar junto a nosotros. !Agradecemos con toda el alma su comprension, apoyo y cariño¡
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Gift Registry Section -->
+    <section id="regalos" class="py-24 px-6 max-w-5xl mx-auto text-center">
+      <div class="space-y-3 mb-16">
+        <p class="text-xs tracking-[0.3em] uppercase text-[#9C7A5B] font-medium">Detalles con amor</p>
+        <h2 class="font-serif text-3xl md:text-4xl text-[#3D312A]">Mesa de Regalos</h2>
+        <div class="w-12 h-0.5 bg-[#DCD5C9] mx-auto mt-4"></div>
+        <p class="text-sm text-[#7A6B5D] max-w-xl mx-auto pt-2">
+          "Su presencia es nuestro mejor regalo, pero si desean tener un detalle con nosotros, aquí encontrarán algunas opciones."
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Option 1 -->
+        <div class="hidden md:invisible bg-white p-6 rounded-2xl border border-[#EFECE6] md:flex flex-col justify-between shadow-sm">
+          <div>
+            <h3 class="font-serif text-lg text-[#3D312A] mb-2">Liverpool</h3>
+            <p class="text-xs text-[#7A6B5D] mb-6">Mesa de regalos física y en línea para adquirir cualquier obsequio.</p>
+            <p class="text-xs font-mono bg-[#F9F7F2] py-2 px-3 rounded text-[#8C5E46] mb-4">Evento: #50938210</p>
+          </div>
+          <button @click="activeModal = 'gift1'" class="w-full py-2.5 bg-[#8C5E46] text-white text-xs tracking-widest uppercase rounded-lg hover:bg-[#724B36] transition">
+            Ver Mesa Liverpool
+          </button>
+        </div>
+
+        <!-- Option 2 -->
+         <div class="bg-white p-6 rounded-2xl border border-[#EFECE6] flex flex-col justify-between shadow-sm">
+          <div>
+            <h3 class="font-serif text-lg text-[#3D312A] mb-2">Lluvia de Sobres</h3>
+            <p class="text-xs text-[#7A6B5D] mb-6">Si prefieren contribuir a nuestra luna de miel mediante efectivo o transferencia.</p>
+            <p class="text-xs font-mono bg-[#F9F7F2] py-2 px-3 rounded text-[#8C5E46] mb-4">BBVA: 4152 ... 1920</p>
+          </div>
+          <button @click="activeModal = 'gift3'" class="w-full py-2.5 bg-[#8C5E46] text-white text-xs tracking-widest uppercase rounded-lg hover:bg-[#724B36] transition">
+            Ver Datos Bancarios
+          </button>
+        </div>
+
+        <!-- Option 3 -->
+        <div class="hidden md:invisible bg-white p-6 rounded-2xl border border-[#EFECE6] md:flex flex-col justify-between shadow-sm">
+          <div>
+            <h3 class="font-serif text-lg text-[#3D312A] mb-2">Lluvia de Sobres</h3>
+            <p class="text-xs text-[#7A6B5D] mb-6">Si prefieren contribuir a nuestra luna de miel mediante efectivo o transferencia.</p>
+            <p class="text-xs font-mono bg-[#F9F7F2] py-2 px-3 rounded text-[#8C5E46] mb-4">BBVA: 4152 ... 1920</p>
+          </div>
+          <button @click="activeModal = 'gift3'" class="w-full py-2.5 bg-[#8C5E46] text-white text-xs tracking-widest uppercase rounded-lg hover:bg-[#724B36] transition">
+            Ver Datos Bancarios
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="py-24 bg-[#F7F4EE] px-6">
+      <div class="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-[#EFECE6]">
+        
+        <div class="text-center space-y-3 mb-10">
+          <p class="text-xs tracking-[0.3em] uppercase text-[#9C7A5B] font-medium">Confirma tu asistencia</p>
+          <h2 class="font-serif text-3xl md:text-4xl text-[#3D312A]">RSVP</h2>
+          <div class="w-12 h-0.5 bg-[#DCD5C9] mx-auto mt-2"></div>
+          <p class="text-sm text-[#7A6B5D]">
+            Por favor confirma antes del <strong class="text-[#3D312A]">24 de Septiembre de 2026</strong> para asegurar tu lugar.
+          </p>
+        </div>
+
+        <!-- Success Alert -->
+        <div v-if="rsvpSubmitted" class="bg-[#EAF3EC] border border-[#C2D6C5] text-[#2D5A38] p-6 rounded-xl text-center space-y-2">
+          <svg class="w-10 h-10 mx-auto text-[#4A7C59]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <h3 class="font-serif text-xl font-semibold">¡Muchas gracias por confirmar!</h3>
+          <p class="text-sm">Hemos registrado tu respuesta exitosamente. ¡Nos encantará compartir este gran día contigo!</p>
+        </div>
+
+        <!-- RSVP Form -->
+        <form v-else @submit.prevent="submitRsvp" class="space-y-6">
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="block text-xs uppercase tracking-widest text-[#7A6B5D] font-medium">Nombre Completo *</label>
+              <input v-model="rsvpForm.fullName" type="text" placeholder="Ej. María Pérez González" required class="w-full px-4 py-3 bg-[#FDFBF7] border border-[#E2DBD0] rounded-lg text-sm focus:outline-none focus:border-[#8C5E46]" />
+            </div>
+            <div class="space-y-2">
+              <label class="block text-xs uppercase tracking-widest text-[#7A6B5D] font-medium">Correo Electrónico</label>
+              <input v-model="rsvpForm.email" type="email" placeholder="correo@ejemplo.com" class="w-full px-4 py-3 bg-[#FDFBF7] border border-[#E2DBD0] rounded-lg text-sm focus:outline-none focus:border-[#8C5E46]" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="block text-xs uppercase tracking-widest text-[#7A6B5D] font-medium">Número de Pases Asignados</label>
+              <select v-model="rsvpForm.guestsCount" class="w-full px-4 py-3 bg-[#FDFBF7] border border-[#E2DBD0] rounded-lg text-sm focus:outline-none focus:border-[#8C5E46]">
+                <option value="1">1 Pase</option>
+                <option value="2">2 Pases</option>
+                <option value="3">3 Pases</option>
+                <option value="4">4 Pases</option>
+              </select>
+            </div>
+            <div class="space-y-2">
+              <label class="block text-xs uppercase tracking-widest text-[#7A6B5D] font-medium">¿Requiere transporte especial?</label>
+              <select v-model="rsvpForm.transport" class="w-full px-4 py-3 bg-[#FDFBF7] border border-[#E2DBD0] rounded-lg text-sm focus:outline-none focus:border-[#8C5E46]">
+                <option value="No">No, iré por mi cuenta</option>
+                <option value="Si">Sí, saliendo del hotel sugerido</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-xs uppercase tracking-widest text-[#7A6B5D] font-medium">Restricciones Alimentarias / Alergias</label>
+            <textarea v-model="rsvpForm.dietary" rows="3" placeholder="Ej. Vegetariano, celíaco, alergia a mariscos..." class="w-full px-4 py-3 bg-[#FDFBF7] border border-[#E2DBD0] rounded-lg text-sm focus:outline-none focus:border-[#8C5E46]"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-4 bg-[#8C5E46] text-white text-xs tracking-[0.2em] uppercase rounded-lg shadow-sm hover:bg-[#724B36] transition duration-300 font-medium">
+            Enviar Confirmación
+          </button>
+
+        </form>
+
+      </div>
+    </section>
+
+    <!-- Gallery / Moments Section -->
+    <!-- <section class="py-20 px-6 max-w-7xl mx-auto">
+      <div class="text-center space-y-3 mb-12">
+        <p class="text-xs tracking-[0.3em] uppercase text-[#9C7A5B] font-medium">Nuestra historia</p>
+        <h2 class="font-serif text-3xl text-[#3D312A]">Los Momentos Más Bellos se Comparten</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="overflow-hidden rounded-xl shadow-xs aspect-square">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="Momento 1" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="overflow-hidden rounded-xl shadow-xs aspect-square">
+          <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=600&q=80" alt="Momento 2" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="overflow-hidden rounded-xl shadow-xs aspect-square">
+          <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80" alt="Momento 3" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="overflow-hidden rounded-xl shadow-xs aspect-square">
+          <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=600&q=80" alt="Momento 4" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+      </div>
+    </section> -->
+
+    <!-- Footer -->
+    <footer class="bg-[#3D312A] text-[#EFECE6] py-16 px-6 text-center space-y-6">
+      <div class="font-serif text-2xl tracking-widest text-[#FDFBF7]">Isaac & Arely</div>
+      <div class="w-8 h-0.5 bg-[#7A6B5D] mx-auto"></div>
+      <p class="text-xs tracking-[0.2em] uppercase text-[#C2B5A3]">30 . Octubre . 2026 • Jardin las flores</p>
+      <p class="text-[11px] text-[#9A8B7A] pt-8">Con amor, gracias por formar parte de nuestra historia.</p>
+    </footer>
+
+    <!-- Modals for Gifts -->
+    <div v-if="activeModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
+      <div class="bg-white rounded-2xl max-w-md w-full p-6 md:p-8 space-y-6 shadow-2xl relative animate-fade-in">
+        <button @click="activeModal = null" class="absolute top-4 right-4 text-[#8A7968] hover:text-[#3D312A]">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+
+        <!-- Modal 3 -->
+        <div v-if="activeModal === 'gift3'" class="space-y-4">
+          <h3 class="font-serif text-2xl text-[#3D312A]">Datos Bancarios (Luna de Miel)</h3>
+          <p class="text-sm text-[#7A6B5D]">Agradecemos de corazón tu valioso apoyo para nuestra nueva etapa juntos:</p>
+          <div class="bg-[#F9F7F2] p-4 rounded-xl space-y-2 text-sm font-mono text-[#4A3B32]">
+            <p>Banco: <strong>BBVA Bancomer</strong></p>
+            <p>Titular: <strong>Isaac Zaid Fierro Gonzalez</strong></p>
+            <p>CLABE: <span>4152 3145 9186 1920</span></p>
+          </div>
+          <button @click="copyToClipboard('4152314591861920', 'clabe')" class="w-full py-3 bg-[#8C5E46] text-white text-xs tracking-widest uppercase rounded-lg hover:bg-[#724B36] transition flex items-center justify-center space-x-2">
+            <span>{{ copiedText === 'clabe' ? '¡CLABE copiada!' : 'Copiar CLABE Interbancaria' }}</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const { createApp, ref, onMounted, onUnmounted } = Vue;
+
+    createApp({
+      setup() {
+        const mobileMenuOpen = ref(false);
+        const rsvpSubmitted = ref(false);
+        const rsvpForm = ref({
+          fullName: '',
+          email: '',
+          guestsCount: '1',
+          dietary: '',
+          transport: 'No'
+        });
+
+        const activeModal = ref(null);
+        const copiedText = ref('');
+
+        const targetDate = new Date('2026-10-30T00:00:00').getTime();
+        const timeLeft = ref({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+        const updateCountdown = () => {
+          const now = new Date().getTime();
+          const difference = targetDate - now;
+
+          if (difference > 0) {
+            timeLeft.value = {
+              days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+              hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+              minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+              seconds: Math.floor((difference % (1000 * 60)) / 1000)
+            };
+          }
+        };
+
+        let timerInterval = null;
+        onMounted(() => {
+          updateCountdown();
+          timerInterval = setInterval(updateCountdown, 1000);
+        });
+
+        onUnmounted(() => {
+          clearInterval(timerInterval);
+        });
+
+        const submitRsvp = () => {
+          if (!rsvpForm.value.fullName) {
+            return;
+          }
+          rsvpSubmitted.value = true;
+        };
+
+        const copyToClipboard = (text, key) => {
+          const el = document.createElement('textarea');
+          el.value = text;
+          document.body.appendChild(el);
+          el.select();
+          document.execCommand('copy');
+          document.body.removeChild(el);
+          copiedText.value = key;
+          setTimeout(() => {
+            copiedText.value = '';
+          }, 2500);
+        };
+
+        const scrollToSection = (id) => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+          mobileMenuOpen.value = false;
+        };
+
+        return {
+          mobileMenuOpen,
+          rsvpSubmitted,
+          rsvpForm,
+          timeLeft,
+          activeModal,
+          copiedText,
+          submitRsvp,
+          copyToClipboard,
+          scrollToSection
+        };
+      }
+    }).mount('#app');
+  </script>
+
+</body>
+</html>

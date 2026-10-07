@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+body {
+    font-family: Montserrat, sans-serif;
+    background-color: #FDFBF7;
+    color: #5C5346;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body::selection{
+    background-color: #B38B6D;
+    color: white;
+}
+
+.font-serif {
+    font-family: Playfair Display, serif;
+}
