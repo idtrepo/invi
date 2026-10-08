@@ -51,14 +51,8 @@
                         </p>
 
                         <div class="mb-6">
-                            <p class="text-[10px] tracking-widest uppercase text-[#8A7968] mb-2">Paleta Sugerida
+                            <p class="text-[10px] tracking-widest uppercase text-[#8A7968] mb-2">
                                 <span class="font-bold">(Evitar tonos blancos y verdes por los novios):</span></p>
-                            <div class="flex space-x-2">
-                                <span class="w-6 h-6 rounded-full bg-[#8C5E46] inline-block shadow-xs"></span>
-                                <span class="w-6 h-6 rounded-full bg-[#C29B7F] inline-block shadow-xs"></span>
-                                <span class="w-6 h-6 rounded-full bg-[#D4C3B3] inline-block shadow-xs"></span>
-                                <span class="w-6 h-6 rounded-full bg-[#3D312A] inline-block shadow-xs"></span>
-                            </div>
                         </div>
                     </div>
                     <a href="https://ar.pinterest.com/pin/1031042908454799451/" target="_blank" class="bg-[#F9F7F2] p-3 rounded-lg text-center text-xs text-[#8A7968]">

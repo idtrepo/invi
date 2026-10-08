@@ -31,20 +31,23 @@
                     <div class="space-y-2">
                         <label class="block text-xs uppercase tracking-widest text-[#7A6B5D] font-medium">Nombre
                             Completo *</label>
-                        <input v-model="rsvpForm.invitado" type="text" placeholder="Ej. María Pérez González" required
+                        <input v-model.trim="rsvpForm.invitado" type="text" placeholder="Ej. María Pérez González"
+                            required
                             class="w-full px-4 py-3 bg-[#FDFBF7] border border-[#E2DBD0] rounded-lg text-sm focus:outline-none focus:border-[#8C5E46]" />
                     </div>
                     <div v-if="invitadoAcompaniado" class="space-y-2">
                         <label class="block text-xs uppercase tracking-widest text-[#7A6B5D] font-medium">Nombre
                             Completo del acompañante</label>
-                        <input v-model="rsvpForm.acompa" type="text" placeholder="Ej. María Pérez González" required
+                        <input v-model.trim="rsvpForm.acompa" type="text" placeholder="Ej. María Pérez González"
+                            required
                             class="w-full px-4 py-3 bg-[#FDFBF7] border border-[#E2DBD0] rounded-lg text-sm focus:outline-none focus:border-[#8C5E46]" />
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
                     <div class="space-y-2">
-                        <label class="block text-xs uppercase tracking-widest text-[#7A6B5D] font-medium">¿Podemos contar con tu compañia?</label>
+                        <label class="block text-xs uppercase tracking-widest text-[#7A6B5D] font-medium">¿Podemos
+                            contar con tu compañia?</label>
                         <select v-model="rsvpForm.podra" required
                             class="w-full px-4 py-3 bg-[#FDFBF7] border border-[#E2DBD0] rounded-lg text-sm focus:outline-none focus:border-[#8C5E46]">
                             <option value="si">Sí, cuenten conmigo</option>
@@ -54,7 +57,8 @@
                 </div>
 
                 <button type="submit"
-                    class="w-full py-4 bg-[#8C5E46] text-white text-xs tracking-[0.2em] uppercase rounded-lg shadow-sm hover:bg-[#724B36] transition duration-300 font-medium" :disabled="cargando">
+                    class="w-full py-4 bg-[#8C5E46] text-white text-xs tracking-[0.2em] uppercase rounded-lg shadow-sm hover:bg-[#724B36] transition duration-300 font-medium"
+                    :disabled="cargando">
                     Enviar Confirmación
                 </button>
 

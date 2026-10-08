@@ -1,4 +1,4 @@
-import { onMounted, ref } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 
 const ls = localStorage;
 const cargando = ref(false);
@@ -10,6 +10,11 @@ export default () => {
         acompa: '',
         podra: 'si',
     });
+    const datosFormateados = computed(() => ({
+        invitado: rsvpForm.value.invitado.toUpperCase(),
+        acompa: rsvpForm.value?.acompa?.toUpperCase() ?? 'SIN ACOMPAñANTE',
+        podra: rsvpForm.value.podra.toUpperCase(),
+    }))
 
     const submitRsvp = async () => {
         if (!rsvpForm.value.invitado) {
@@ -21,12 +26,7 @@ export default () => {
         try {
             await fetch('https://script.google.com/macros/s/AKfycbwTh0axqldhUnmcsyVNDeRlg6h4J6fI5GQN28vhtQNT6hV4rwm-ex8RmJqbYR4n6fJ_Ug/exec', {
                 method: 'POST',
-                body: JSON.stringify({
-                    ...rsvpForm.value,
-                    podra: rsvpForm.value.podra === 'si'
-                        ? true
-                        : false,
-                })
+                body: JSON.stringify(datosFormateados.value)
             })
             rsvpSubmitted.value = true;
             ls.setItem('rsvpSubmitted', 'true');
